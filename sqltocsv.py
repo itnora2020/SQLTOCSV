@@ -71,8 +71,10 @@ else:
     print(sqlserver_ip+":数据库连接正常!")
     print("准备开始执行sql脚本...")
 cur = conn.cursor()  # 定义一个游标用来执行DDL,DML,SELECT语句
-# 定义一个list变量用来保存表头
+
+#读取sql文件夹中的sql文件
 for i in sqlfile_list_name:
+    # 定义一个list变量用来保存表头
     header = []
     sqlfilename = getsqlfilename(i)
     sql = open(i, 'r')
@@ -100,9 +102,9 @@ for i in sqlfile_list_name:
     cur.execute(sql)  # 执行SELECT
     print('开始导出:', sqlfilename, time.strftime(
         "%Y-%m-%d %H:%M:%S", time.localtime()))
-    csvpath = getlocalpath(__file__, 'csv')
-    csvfilename = sqlfilename[:-4]+'.csv'
-    # csvfile.txt改成csvfile.csv表示导出为excel 如果不加newline='' 每导出一行就有空的行
+    csvpath = getlocalpath(__file__, 'csv')     #获取要保存的csv文件夹位置
+    csvfilename = sqlfilename[:-4]+'.csv'       #获取要保存的csv文件名称
+    #如果不加newline='' 每导出一行就有空的行
     with open(csvpath+csvfilename, 'w', newline='', encoding="utf-8")as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=header)  # 用来写表头
         writer.writeheader()  # 用来写表头
