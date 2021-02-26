@@ -30,7 +30,7 @@ def getlocalpath(file, newpath=0, isdeletefile=0):
     return localpath
 
 
-# 或者给定路径文件夹中所有文件路径
+# 获取给定路径文件夹中所有文件路径
 def listdir(path, file_list_name):  # 传入存储的list
     for file in os.listdir(path):
         file_path = os.path.join(path, file)
@@ -45,6 +45,7 @@ def getsqlfilename(filepath):
     return filepath.split('\\')[-1]
 
 
+#获取所有sql文件路径
 sqlfile_list_name = []
 sqlpath = getlocalpath(__file__)+'\\sql\\'
 if not os.path.exists(sqlpath):
@@ -52,6 +53,7 @@ if not os.path.exists(sqlpath):
     exit()
 listdir(sqlpath, sqlfile_list_name)
 
+#数据库配置
 sqlserver_ip = '127.0.0.1'
 username = 'sa'
 password = '123456'
